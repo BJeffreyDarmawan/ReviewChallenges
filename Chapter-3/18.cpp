@@ -2,7 +2,7 @@
 #include<cmath>
 #include<iomanip>
 using namespace std;
-//fail, sorry
+//sorry, I fail to spott the calculation error
 int main()
 {
 	float amount, principal, rate, T;
