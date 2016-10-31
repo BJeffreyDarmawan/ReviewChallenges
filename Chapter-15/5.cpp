@@ -2,7 +2,6 @@
 
 using namespace std;
 
-//copaste from book for Time.h
 class Time
 {
 	protected:
@@ -38,6 +37,18 @@ class MilTime: public Time{
 		MilTime(){
 			milHours = 0;
 			milSeconds = 0;
+		}
+		
+		MilTime(int milHours)
+		{
+			if(milHours > 2359)
+			{
+				exit(0);
+			}
+			else
+				this->milHours = milHours;
+	
+			hour = this->milHours / 100;
 		}
 		
 		MilTime(int milHours, int milSeconds)
@@ -90,7 +101,6 @@ class MilTime: public Time{
 			cout << "It is " << milVersionHour << "." << min << " and " << sec << " seconds" << endl;
 		}
 		
-		
 		string getHours()
 		{
 			int milVersionHour = this->milHours / 100;
@@ -113,13 +123,38 @@ class MilTime: public Time{
 		}
 };
 
+
+class TimeClock : public MilTime{
+	protected:
+		int elapsedHours;
+		
+		
+	public:
+		TimeClock(int timeOne, int timeTwo)
+		{
+			if(timeOne > 2359 || timeTwo > 2359 || timeOne < 0 || timeTwo < 0)
+			{
+				exit(0);
+			}
+			else
+			{
+				MilTime startTime(timeOne), endTime(timeTwo);
+				this->elapsedHours = endTime.getHour() - startTime.getHour(); //to retrieve hour from time
+			}
+		}
+		
+		int getElapsed()
+		{
+			return this->elapsedHours;
+		}
+};
+
 int main()
 {
-	MilTime time1(2231, 43);
-	time1.printSt();
-	time1.printMil();
-	cout << time1.getHours();
-	cout << time1.getStandHr();
+	TimeClock testTime(2000, 2300);
+	cout << testTime.getElapsed();
+	
+	
 	
 	return 0;
 }
