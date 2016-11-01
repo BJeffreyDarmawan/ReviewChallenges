@@ -81,11 +81,25 @@ class CargoShip:public Ship{
 		}
 };
 
+void printNow(Ship *aShip)
+{
+	aShip->print(); //print each object's print function
+}
+
+
 int main()
 {
 	//i dont know what I have to do in main..
-	//Ship* A[] = new Ship[]; ?
+	Ship *A[3] = 
+		{ new Ship("Shipppp", "2014"),
+		  new CruiseShip("Shippppppp", 3000),
+		  new CargoShip("Le Cargo", 2500)	
+		};
 	
+	for(int i = 0; i < 3; i++)
+	{
+		printNow(A[i]);
+	}
 	
 	return 0;
 }
