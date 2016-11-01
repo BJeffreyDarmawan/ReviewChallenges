@@ -1,3 +1,8 @@
+//
+//copaste from book
+//
+
+
 #include <iostream>
 #include <new> // Needed for bad_alloc exception
 #include <cstdlib> // Needed for the exit function
@@ -35,6 +40,17 @@ class SimpleVector
 
 		// Overloaded [] operator declaration
 		T &operator[](const int &);
+		
+		void push_back(T a)
+		{
+			arraySize++;
+			aptr[arraySize-1] = a;
+		}
+		
+		void pop_back()
+		{
+			arraySize--;
+		}
 };
 
 //************************************************************
@@ -59,7 +75,7 @@ SimpleVector<T>::SimpleVector(int s)
 
 	// Initialize the array.
 	for (int count = 0; count < arraySize; count++)
-	*(aptr + count) = 0;
+		*(aptr + count) = 0;
 }
 
 //*******************************************
@@ -142,4 +158,82 @@ T &SimpleVector<T>::operator[](const int &sub)
 	if (sub < 0 || sub >= arraySize)
 		subError();
 	return aptr[sub];
+}
+
+int main()
+{
+
+	
+	const int SIZE = 10; // Number of elements
+	int count; // Loop counter
+
+	// Create a SimpleVector of ints.
+	SimpleVector<int> intTable(SIZE);
+
+	// Create a SimpleVector of doubles.
+	SimpleVector<double> doubleTable(SIZE);
+
+	// Store values in the two SimpleVectors.
+	for (count = 0; count < SIZE; count++)
+	{
+		intTable[count] = (count * 2);
+		doubleTable[count] = (count * 2.14);
+	}
+
+	// Display the values in the SimpleVectors.
+	cout << "These values are in intTable:\n";
+	for (count = 0; count < SIZE; count++)
+	cout << intTable[count] << " ";
+	cout << endl;
+	cout << "These values are in doubleTable:\n";
+	for (count = 0; count < SIZE; count++)
+	cout << doubleTable[count] << " ";
+	cout << endl;
+
+	// Use the standard + operator on the elements.
+	cout << "\nAdding 5 to each element of intTable"
+	<< " and doubleTable.\n";
+	for (count = 0; count < SIZE; count++)
+	{
+		intTable[count] = intTable[count] + 5;
+		doubleTable[count] = doubleTable[count] + 5.0;
+	}
+
+	// Display the values in the SimpleVectors.
+	cout << "These values are in intTable:\n";
+	for (count = 0; count < SIZE; count++)
+		cout << intTable[count] << " ";
+	cout << endl;
+	
+	cout << "These values are in doubleTable:\n";
+	for (count = 0; count < SIZE; count++)
+		cout << doubleTable[count] << " ";
+	cout << endl;
+	
+	// Use the standard ++ operator on the elements.
+	cout << "\nIncrementing each element of intTable and"
+	<< " doubleTable.\n";
+	for (count = 0; count < SIZE; count++)
+	{
+		intTable[count]++;
+		doubleTable[count]++;
+	}
+
+	// Display the values in the SimpleVectors.
+	cout << "These values are in intTable:\n";
+	for (count = 0; count < SIZE; count++)
+		cout << intTable[count] << " ";
+	cout << endl;
+
+	cout << "These values are in doubleTable:\n";
+	for (count = 0; count < SIZE; count++)
+		cout << doubleTable[count] << " ";
+	cout << endl;
+
+	intTable.push_back(10); //add another element at the end of the array
+	cout << intTable[SIZE] << endl; 
+	intTable.pop_back(); 
+	cout << intTable[SIZE] << endl; //will make an error because the last element is already removed
+	
+	return 0;
 }
